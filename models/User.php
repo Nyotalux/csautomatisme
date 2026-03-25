@@ -1,14 +1,15 @@
 <?php
 
 namespace app\models;
-
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+ public static function tableName() {
+        return '{{%user}}';
+    }
+
 
     private static $users = [
         '100' => [
@@ -17,6 +18,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
             'password' => 'admin',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
+            'service_id' => null, // admin sans service associé
+            'created_at' => null,
+            'updated_at' => null,
         ],
         '101' => [
             'id' => '101',
@@ -24,6 +28,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
             'password' => 'demo',
             'authKey' => 'test101key',
             'accessToken' => '101-token',
+            'service_id' => null, // demo sans service associé
+            'created_at' => null,
+            'updated_at' => null,
         ],
     ];
 

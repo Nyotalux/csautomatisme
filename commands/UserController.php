@@ -11,11 +11,13 @@ class UserController extends Controller
     {
         $user = new User();
         $user->username = $username;
-        $user->password_hash = Yii::$app->security->generatePasswordHash($password);
-        $user->auth_key = Yii::$app->security->generateRandomString();
-        $user->status = 10;
-        $user->created_at = time();
-        $user->updated_at = time();
+        // On utilise 'password' car c'est le nom de votre colonne
+        $user->password = \Yii::$app->security->generatePasswordHash($password);
+        $user->authKey = \Yii::$app->security->generateRandomString();
+        $user->accessToken = \Yii::$app->security->generateRandomString();
+
+
+
         if ($user->save()) {
             echo "User '{$username}' created successfully.\n";
         } else {
