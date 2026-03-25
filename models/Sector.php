@@ -82,5 +82,14 @@ class Sector extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Service::class, ['id' => 'service_id']);
     }
+    /**
+ * @return \yii\db\ActiveQuery
+ */
+public function getGallery()
+{
+    return $this->hasMany(Gallery::class, ['entity_id' => 'id'])
+        ->andOnCondition(['entity_type' => 'sector'])
+        ->orderBy(['sort_order' => SORT_ASC]);
+}
 
 }

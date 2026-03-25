@@ -101,4 +101,12 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     {
         return $this->password === $password;
     }
+
+    /**
+ * @return \yii\db\ActiveQuery
+ */
+public function getService()
+{
+    return $this->hasOne(Service::class, ['id' => 'service_id']);
+}
 }

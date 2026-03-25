@@ -96,10 +96,7 @@ class Service extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSectors()
-    {
-        return $this->hasMany(Sector::class, ['service_id' => 'id']);
-    }
+  
 
     /**
      * Gets query for [[Users]].
@@ -110,5 +107,23 @@ class Service extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::class, ['service_id' => 'id']);
     }
+
+    /**
+ * @return \yii\db\ActiveQuery
+ */
+public function getSectors()
+{
+    return $this->hasMany(Sector::class, ['service_id' => 'id'])->orderBy(['sort_order' => SORT_ASC]);
+}
+
+/**
+ * @return \yii\db\ActiveQuery
+ */
+public function getGallery()
+{
+    return $this->hasMany(Gallery::class, ['entity_id' => 'id'])
+        ->andOnCondition(['entity_type' => 'service'])
+        ->orderBy(['sort_order' => SORT_ASC]);
+}
 
 }
