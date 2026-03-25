@@ -109,4 +109,15 @@ public function getService()
 {
     return $this->hasOne(Service::class, ['id' => 'service_id']);
 }
+
+/**
+ * Génère le hash du mot de passe à partir d'une chaîne et l'enregistre
+ *
+ * @param string $password
+ */
+public function setPassword($password)
+{
+    $this->password_hash = \Yii::$app->security->generatePasswordHash($password);
+}
+
 }
