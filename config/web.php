@@ -11,6 +11,12 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+     'modules' => [
+        'extranet' => [
+            'class' => 'app\modules\extranet\Module',
+            'layout' => 'main',
+        ],
+    ],
     'components' => [
         'request' => [
             
@@ -43,14 +49,16 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'extranet' => 'extranet/default/index',
+                'extranet/<controller>/<action>' => 'extranet/<controller>/<action>',
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];
