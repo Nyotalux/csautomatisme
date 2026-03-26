@@ -50,14 +50,14 @@ $config = [
         ],
         'db' => $db,
         
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                'extranet' => 'extranet/default/index',
-                'extranet/<controller>/<action>' => 'extranet/<controller>/<action>',
-            ],
-        ],
+        // 'urlManager' => [
+        //     'enablePrettyUrl' => true,
+        //     'showScriptName' => false,
+        //     'rules' => [
+        //         'extranet' => 'extranet/default/index',
+        //         'extranet/<controller>/<action>' => 'extranet/<controller>/<action>',
+        //     ],
+        // ],
         
     ],
     'params' => $params,
