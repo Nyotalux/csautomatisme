@@ -18,6 +18,9 @@ $config = [
         ],
     ],
     'components' => [
+         'seo' => [
+        'class' => 'app\components\SeoComponent',
+    ],
         'request' => [
             
             'cookieValidationKey' => '8F7mEOwVCxLsV-AFh0m1jg7LWR15cNMJ',
@@ -61,6 +64,7 @@ $config = [
         'sector/<slug:[\w-]+>' => 'sector/view',
         'contact' => 'site/contact',
         'about' => 'site/about',
+        'sitemap.xml' => 'sitemap/index',
         
         // Extranet routes (commentez pour l'instant si besoin)
         // 'extranet' => 'extranet/default/index',

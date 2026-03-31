@@ -1,3 +1,11 @@
+
+<?php
+Yii::$app->seo->setMetaTags(
+    'Accueil',
+    'CS Automatisme - Expert en automatisme, domotique et électricité industrielle depuis 20 ans.',
+    'automatisme, domotique, électricité, robotique, industrie, cs automatisme'
+);
+?>
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;

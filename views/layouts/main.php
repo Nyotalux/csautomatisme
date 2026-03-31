@@ -23,6 +23,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
+    <?php
+// Balise canonical
+$canonical = Yii::$app->request->absoluteUrl;
+$this->registerLinkTag(['rel' => 'canonical', 'href' => $canonical]);
+?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <!-- AOS Animation Library -->
@@ -31,6 +36,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link href="css/custom.css" rel="stylesheet">
 </head>
+
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 

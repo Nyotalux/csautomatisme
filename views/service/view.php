@@ -1,4 +1,13 @@
 <?php
+Yii::$app->seo->setMetaTags(
+    $service->name,
+    $service->description,
+    $service->meta_keywords ?: '',
+    null,
+    $service->image_main ? '/uploads/' . $service->image_main : null
+);
+?>
+<?php
 use yii\helpers\Html;
 use yii\helpers\Url;
 
