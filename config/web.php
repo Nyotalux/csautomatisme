@@ -49,14 +49,24 @@ $config = [
         ],
         'db' => $db,
         
-        // 'urlManager' => [
-        //     'enablePrettyUrl' => true,
-        //     'showScriptName' => false,
-        //     'rules' => [
-        //         'extranet' => 'extranet/default/index',
-        //         'extranet/<controller>/<action>' => 'extranet/<controller>/<action>',
-        //     ],
-        // ],
+'urlManager' => [
+    'enablePrettyUrl' => true,
+    'showScriptName' => false,
+    'rules' => [
+        // Frontend routes
+        '' => 'site/index',
+        'services' => 'service/index',
+        'service/<slug:[\w-]+>' => 'service/view',
+        'sectors' => 'sector/index',
+        'sector/<slug:[\w-]+>' => 'sector/view',
+        'contact' => 'site/contact',
+        'about' => 'site/about',
+        
+        // Extranet routes (commentez pour l'instant si besoin)
+        // 'extranet' => 'extranet/default/index',
+        // 'extranet/<controller>/<action>' => 'extranet/<controller>/<action>',
+    ],
+],
         
     ],
     'params' => $params,

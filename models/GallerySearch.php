@@ -39,37 +39,35 @@ class GallerySearch extends Gallery
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = null)
-    {
-        $query = Gallery::find();
-
-        // add conditions that should always apply here
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+public function search($params)
+{
+    $query = Gallery::find();
+    
+    $user = \Yii::$app->user->identity;
+    
+    // Filtrer selon le service de l'utilisateur
+    if ($user && $user->service_id !== null) {
+        // Les galleries sont liées à des services ou secteurs
+        $query->andWhere([
+            'OR',
+            ['AND', ['entity_type' => 'service'], ['entity_id' => $user->service_id]],
+            ['AND', ['entity_type' => 'sector'], ['entity_id' => Sector::find()->select('id')->where(['service_id' => $user->service_id])]],
         ]);
+    }
 
-        $this->load($params, $formName);
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+    ]);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+    $this->load($params);
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'entity_id' => $this->entity_id,
-            'sort_order' => $this->sort_order,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-
-        $query->andFilterWhere(['like', 'entity_type', $this->entity_type])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'caption', $this->caption]);
-
+    if (!$this->validate()) {
         return $dataProvider;
     }
+
+    $query->andFilterWhere(['entity_type' => $this->entity_type])
+          ->andFilterWhere(['entity_id' => $this->entity_id]);
+
+    return $dataProvider;
+}
 }

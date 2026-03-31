@@ -39,43 +39,33 @@ class ServiceSearch extends Service
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = null)
-    {
-        $query = Service::find();
+   public function search($params)
+{
+    $query = Service::find();
+    
+    // Récupérer l'utilisateur connecté
+    $user = \Yii::$app->user->identity;
+    
+    // Si l'utilisateur a un service_id (n'est pas admin), filtrer
+    if ($user && $user->service_id !== null) {
+        $query->andWhere(['id' => $user->service_id]);
+    }
 
-        // add conditions that should always apply here
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+    ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+    $this->load($params);
 
-        $this->load($params, $formName);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'department_id' => $this->department_id,
-            'sort_order' => $this->sort_order,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'image_main', $this->image_main])
-            ->andFilterWhere(['like', 'icon', $this->icon])
-            ->andFilterWhere(['like', 'animation', $this->animation])
-            ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
-            ->andFilterWhere(['like', 'meta_description', $this->meta_description]);
-
+    if (!$this->validate()) {
         return $dataProvider;
     }
+
+    // Filtres existants
+    $query->andFilterWhere(['like', 'name', $this->name])
+          ->andFilterWhere(['like', 'slug', $this->slug])
+          ->andFilterWhere(['department_id' => $this->department_id]);
+
+    return $dataProvider;
+}
 }

@@ -15,10 +15,12 @@ class Module extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public function init()
-    {
-        parent::init();
-
-        // custom initialization code goes here
-    }
+public function init()
+{
+    parent::init();
+    
+    // Configurer le layout
+    \Yii::$app->layoutPath = '@app/modules/extranet/views/layouts';
+    \Yii::$app->layout = 'main';
+}
 }
