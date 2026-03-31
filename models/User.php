@@ -6,6 +6,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $service_id; 
  public static function tableName() {
         return '{{%user}}';
     }
@@ -126,5 +127,14 @@ public function setPassword($password)
 {
     $this->password_hash = \Yii::$app->security->generatePasswordHash($password);
 }
-
+public function rules()
+{
+    return [
+        [['username', 'password'], 'required'],
+        [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 255],
+        [['service_id'], 'integer'],
+        [['created_at', 'updated_at'], 'safe'],
+        [['username'], 'unique'],
+    ];
+}
 }

@@ -3,7 +3,7 @@
 namespace app\modules\extranet\controllers;
 
 use yii\web\Controller;
-
+use yii\filters\AccessControl;
 /**
  * Default controller for the `extranet` module
  */

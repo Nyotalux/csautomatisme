@@ -1,7 +1,7 @@
 <?php
 
 namespace app\modules\extranet\controllers;
-
+use yii\filters\AccessControl;
 use app\models\Service;
 use app\models\ServiceSearch;
 use yii\web\Controller;
@@ -16,20 +16,26 @@ class ServiceController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+   public function behaviors()
+{
+    return [
+        'access' => [
+            'class' => AccessControl::class,
+            'rules' => [
+                [
+                    'allow' => true,
+                    'roles' => ['@'], // Uniquement les utilisateurs connectés
                 ],
-            ]
-        );
-    }
+            ],
+        ],
+        'verbs' => [
+            'class' => VerbFilter::class,
+            'actions' => [
+                'delete' => ['POST'],
+            ],
+        ],
+    ];
+}
 
     /**
      * Lists all Service models.
