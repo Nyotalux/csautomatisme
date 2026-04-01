@@ -55,6 +55,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonical]);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Blog', 'url' => ['/blog/index']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
@@ -81,11 +82,31 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonical]);
     </div>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
+<footer class="bg-dark text-white mt-5 py-4">
     <div class="container">
-        <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>CS Automatisme</h5>
+                <p>Expert en automatisme, domotique et électricité industrielle depuis 20 ans.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Liens rapides</h5>
+                <ul class="list-unstyled">
+                    <li><?= Html::a('Services', ['service/index'], ['class' => 'text-white text-decoration-none']) ?></li>
+                    <li><?= Html::a('Secteurs', ['sector/index'], ['class' => 'text-white text-decoration-none']) ?></li>
+                    <li><?= Html::a('Blog', ['blog/index'], ['class' => 'text-white text-decoration-none']) ?></li>
+                    <li><?= Html::a('Contact', ['site/contact'], ['class' => 'text-white text-decoration-none']) ?></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Contact</h5>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89<br>
+                <i class="fas fa-envelope"></i> contact@csautomatisme.com<br>
+                <i class="fas fa-map-marker-alt"></i> 123 Avenue des Automatismes, 75000 Paris</p>
+            </div>
+        </div>
+        <div class="text-center mt-3 pt-3 border-top border-secondary">
+            <small>&copy; <?= date('Y') ?> CS Automatisme. Tous droits réservés.</small>
         </div>
     </div>
 </footer>
