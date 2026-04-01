@@ -56,6 +56,9 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonical]);
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'Blog', 'url' => ['/blog/index']],
+            ['label' => 'Tableau de bord', 'url' => ['/extranet/dashboard/index']],
+            ['label' => 'Services', 'url' => ['/extranet/service/index']],
+            ['label' => 'Secteurs', 'url' => ['/extranet/sector/index']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
