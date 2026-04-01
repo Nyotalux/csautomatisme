@@ -6,6 +6,7 @@ Yii::$app->seo->setMetaTags(
     'automatisme, domotique, électricité, robotique, industrie, cs automatisme'
 );
 ?>
+<?= app\components\StatsWidget::widget() ?>
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -52,6 +53,45 @@ $this->title = 'CS Automatisme';
             </div>
             <?php endforeach; ?>
         </div>
+
+        <!-- Témoignages clients -->
+<div class="row mt-5 pt-5">
+    <div class="col-12 text-center mb-4">
+        <h2>Ce que nos clients disent</h2>
+        <p class="text-muted">Ils nous font confiance</p>
+    </div>
+</div>
+
+<div class="row">
+    <?php
+    $testimonials = \app\models\Testimonial::find()
+        ->where(['status' => 1])
+        ->orderBy(['sort_order' => SORT_ASC])
+        ->limit(3)
+        ->all();
+    
+    foreach ($testimonials as $testimonial):
+    ?>
+    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="<?= $testimonial->sort_order * 100 ?>">
+        <div class="card h-100 shadow-sm border-0 text-center">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="fas fa-star <?= $i <= $testimonial->rating ? 'text-warning' : 'text-muted' ?>"></i>
+                    <?php endfor; ?>
+                </div>
+                <p class="card-text">"<?= Html::encode($testimonial->content) ?>"</p>
+                <div class="mt-3">
+                    <strong><?= Html::encode($testimonial->client_name) ?></strong>
+                    <?php if ($testimonial->client_company): ?>
+                        <br><small class="text-muted"><?= Html::encode($testimonial->client_company) ?></small>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
         
         <!-- Secteurs d'intervention -->
         <div class="row mb-5">
