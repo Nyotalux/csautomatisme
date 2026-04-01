@@ -1,0 +1,69 @@
+<?php
+
+use yii\db\Migration;
+
+class m260401_090512_add_fields_to_user_table extends Migration
+{
+    /**
+     * {@inheritdoc}
+     */
+   public function up()
+    {
+        // Ajouter les champs
+        $this->addColumn('{{%user}}', 'role_id', $this->integer());
+        $this->addColumn('{{%user}}', 'region_id', $this->integer());
+        $this->addColumn('{{%user}}', 'sector_id', $this->integer());
+        $this->addColumn('{{%user}}', 'first_name', $this->string(255));
+        $this->addColumn('{{%user}}', 'last_name', $this->string(255));
+        $this->addColumn('{{%user}}', 'phone', $this->string(50));
+        $this->addColumn('{{%user}}', 'avatar', $this->string(255));
+        $this->addColumn('{{%user}}', 'last_login', $this->datetime());
+        
+        // Ajouter les clés étrangères
+        $this->addForeignKey(
+            'fk_user_role',
+            '{{%user}}',
+            'role_id',
+            '{{%role}}',
+            'id',
+            'SET NULL',
+            'CASCADE'
+        );
+        
+        $this->addForeignKey(
+            'fk_user_region',
+            '{{%user}}',
+            'region_id',
+            '{{%region}}',
+            'id',
+            'SET NULL',
+            'CASCADE'
+        );
+        
+        $this->addForeignKey(
+            'fk_user_sector',
+            '{{%user}}',
+            'sector_id',
+            '{{%sector}}',
+            'id',
+            'SET NULL',
+            'CASCADE'
+        );
+    }
+
+    public function down()
+    {
+        $this->dropForeignKey('fk_user_role', '{{%user}}');
+        $this->dropForeignKey('fk_user_region', '{{%user}}');
+        $this->dropForeignKey('fk_user_sector', '{{%user}}');
+        
+        $this->dropColumn('{{%user}}', 'role_id');
+        $this->dropColumn('{{%user}}', 'region_id');
+        $this->dropColumn('{{%user}}', 'sector_id');
+        $this->dropColumn('{{%user}}', 'first_name');
+        $this->dropColumn('{{%user}}', 'last_name');
+        $this->dropColumn('{{%user}}', 'phone');
+        $this->dropColumn('{{%user}}', 'avatar');
+        $this->dropColumn('{{%user}}', 'last_login');
+    }
+}
