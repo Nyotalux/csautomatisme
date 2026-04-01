@@ -6,7 +6,7 @@ Yii::$app->seo->setMetaTags(
     'automatisme, domotique, électricité, robotique, industrie, cs automatisme'
 );
 ?>
-<?= app\components\StatsWidget::widget() ?>
+
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -61,7 +61,7 @@ $this->title = 'CS Automatisme';
         <p class="text-muted">Ils nous font confiance</p>
     </div>
 </div>
-
+<?= app\components\StatsWidget::widget() ?>
 <div class="row">
     <?php
     $testimonials = \app\models\Testimonial::find()
